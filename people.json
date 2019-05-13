@@ -1,0 +1,363 @@
+{
+  "Ian Hinder": {
+       "interests": [
+            "Optimization",
+	   "Version control",
+            "Reproducibility",
+           "Virtualization",
+	   "Software testing",
+            "Correctness testing",
+            "Visualization",
+            "Middleware",
+            "Numerical methods",
+            "Partial differential equation",
+            "Automatic programming",
+            "Mathematical model",
+           "Parallel computing",
+           "HPC",
+           "C (programming language)",
+           "C++",
+           "Wolfram Mathematica",
+           "Python",
+           "Bash (Unix shell)",
+           "Linux",
+           "MacOS",
+	   "Git",
+            "Docker (software)",
+            "Jenkins (software)",
+            "libvirt",
+            "MPI",
+            "OpenMP",
+            "VisIt"
+       ]
+   },
+
+
+"Aitor Apaolaza": {
+  "interests":[
+    "Web application",
+    "Data science",
+    "Visualization",
+    "Data mining",
+    "Node.js",
+    "Java",
+    "JavaScript",
+    "R (programming language)",
+    "SQL",
+    "NoSQL",
+    "LaTeX",
+    "Jquery",
+    "HTML",
+    "Data wrangling",
+    "XML"
+ ]
+},
+
+
+    
+"Gerard Capes": {
+    "interests":[
+     "HPC",
+     "Instructor-led training",
+     "Software carpentry",
+     "LaTeX",
+     "MATLAB",
+     "Python",
+     "Git",
+     "Fortran",
+     "Make (software)",
+     "Bash (Unix shell)"
+  ]
+ },
+
+    
+"James Schumm": {
+   "interests":[
+     "Systems analysis",
+     "Technical writer",
+     "Web development",
+     "WordPress",
+     "LiveCode",
+     "Mobile app",
+     "PHP",
+    "Git",
+   "GitHub",
+   "Perl",
+  "Microsoft Windows",
+  "Application design"
+ ]
+ },
+
+    
+  "Douglas Lowe": {
+     "interests":[
+		"Atmospheric chemistry",
+		"Chemical transport model",
+		"Weather Research and Forecasting Model",
+		"Kinetic PreProcessor",
+		"Numerical software",
+		"Scientific workflow system",
+		"High-performance computing",
+		"Fortran",
+		"Bash (Unix shell)",
+		"National Center for Atmospheric Research",
+		"Python",
+		"Perl",
+		"MATLAB",
+		"Make (software)",
+		"Git",
+	 "Apache Subversion",
+		"MacOS",
+		"Linux"
+	]
+ },
+
+    "Kamilla Kopec-Harding": {
+    "interests":[
+     "Data analysis",
+     "Data science",
+     "Data preparation",
+     "Data integration",
+     "Computational chemistry",
+     "Python",
+     "Stata",
+     "R (programming language)",
+     "SPSS",
+     "Text mining",
+     "Structured Prediction",
+     "Health data",
+     "Real world data"
+ ]
+ },
+
+
+"Andrew Rowley": {
+    "interests":[
+     "Spiking neural network",
+     "Neuromorphic engineering",
+     "SpiNNaker",
+     "C (programming language)",
+     "Linux",
+     "Microsoft Windows",
+     "Python (programming language)",
+     "Java (programming language)",
+     "Travis CI",
+     "Jenkins (software)",
+     "Embedded C",
+     "C++",
+     "Git",
+     "GitHub",
+     "Docker (software)",
+     "Perl",
+    "Web application",
+    "High-throughput computing",
+    "Windows Subsystem for Linux",
+    "Java Native Interface (JNI)"
+  ]
+ },
+
+
+
+    "Robert Haines": {
+   "interests": [
+     "Agile software development",
+     "Software testing",
+     "Project management",
+     "Version control",
+     "Test-driven development",
+     "Continuous integration",
+     "Ruby",
+     "Software Sustainability Institute",
+     "Reference management software",
+     "Credit",
+     "Open research",
+     "Reproducible research",
+     "LaTeX",
+     "Git",
+     "Java",
+     "Research software engineering",
+     "Empirical Software Engineering",
+     "C (programmng language)",
+     "Make (software)"
+  ],
+  "technologies": [
+    "Rob is Head of the RSE team"
+  ]
+},
+
+
+
+    "Ann Gledson": {
+     "interests":[
+     "Text mining",
+     "User interface design",
+     "Django",
+     ".NET Framework",
+     "Microsoft UI Automation",
+     "Internet of things",
+     "Visualization",
+     "Machine learning",
+     "Python",
+     "Web application",
+     "Weka",
+     "R (programming language)",
+     "SPSS",
+     "C# (programming language)",
+     "Delphi (programming language)",
+     "Object Pascal",
+     "JavaScript",
+     "Java",
+     "Jquery",
+     "XML",
+     "JSON",
+     "HTML",
+     "Perl",
+     "Visual Basic",
+     "C++",
+     "Pandas (software)",
+     "Data wrangling",
+     "Smart city",
+     "Data modeling",
+     "LaTeX",
+     "Linux",
+     "SQL",
+     "InfluxDB",
+     "MySQL",
+     "Microsoft SQL Server",
+     "Celery (software)"
+  ]
+   },
+    
+
+    "Peter Crowther": {
+    "interests":[
+        "Digital image processing",
+        "Molecular dynamics",
+        "C (programming language)",
+        "C++",
+        "Python",
+        "R (programming language)",
+        "LabVIEW",
+        "Experimental data",
+	"Instructor-led training"
+    ]
+},
+
+
+    "James Sinnott": {
+   "interests":[
+     "Data science",
+     "Health informatics",
+      "Usability",
+      "User interface design",
+      "User experience",
+      "Git",
+      "JavaScript",
+      "Linux",
+      "MacOS",
+      "MongoDB",
+      "Objective-C",
+      "Perl",
+      "Python",
+      "SQL"
+   ]
+},
+
+    "Ian Cottam": {
+        "interests": [
+            "Cloud computing",
+            "High-throughput computing",
+            "Software testing",
+            "Self-service",
+            "Cloud storage",
+	    "Encryption",
+	    "Critical system",
+	    "Project management",
+	    "Version control",
+            "HPC",	    
+            "C (programming language)",
+            "C++",
+            "Bash (Unix shell)",
+            "Linux",
+            "MacOS",
+            "Windows Subsystem for Linux",
+            "AWK",
+	    "Amazon Web Services",
+	    "Microsoft Azure",
+	    "Dropbox",
+	    "HTCondor",
+	    "Oracle Grid Engine",
+	    "Git",
+	    "Make (software)"
+        ],
+	"technologies": [
+          "Contact Ian for RSE projects in FSE"
+
+	    ]
+    },
+
+
+
+    "Andrew Jerrison": {
+                "interests": [
+                                "Web application",
+                                "Mobile app",
+                                "Cloud applications",
+                                "Cloud computing",
+                                "Desktop app",
+                                "Machine learning",
+                                "Artificial intelligence",
+                                "Application design",
+                    "Visualization",
+                                "C# (programming language)",
+                                "JavaScript",
+                                "ASP.NET",
+                                "Microsoft Azure",
+                                "Cordova",
+                                "SQL"
+                ],
+	"technologies": [
+          "Contact Andrew for RSE projects in FBMH"
+
+	    ]
+},
+
+
+    "Adrian Harwood": {
+      "interests":[
+	  "Embedded system",
+	  "General-purpose computing on graphics processing units",
+    "Mobile app",
+    "Game design",
+    "Virtual reality",
+    "Real-time simulation",
+    "Project management",
+    "Process management",
+	  "HPC",
+    "C (programming language)",
+    "C++",
+    "C# (programming language)",
+    "Java (programming language)",
+    "MATLAB",
+    "Visual Studio",
+    "Android SDK",
+    "Java Native Interface (JNI)",
+    "NVIDIA CUDA",
+    "OpenGL",
+    "Unreal Engine",
+    "Unity (game engine)",
+    "MPI",
+    "OpenMP",
+    "Xamarin",
+    "Microsoft Windows",
+    "Linux",
+    "Git"
+      ],
+    "technologies": [
+          "Contact Adrian for RSE projects using Mobile or GPGPU apps"
+
+	    ]	
+    }
+
+
+}
