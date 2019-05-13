@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if node_count >= 1 %}
+{% autoescape false %}
+{{ graph }}
+{% endautoescape %}
+{% else %}
+  <p>No results found for {{ name }}.</p>
+{% endif %}
+{% endblock %}
