@@ -116,7 +116,7 @@ def build_graph(name, results, topics):
         image_files = get_image_files()
 
         for filename in image_files:
-            if string.find(filename, surname) != -1 and string.find(filename, forename) != -1:
+            if string.count(filename, surname) != -1 and string.count(filename, forename) != -1:
                 image_file = '%s' % (filename)
 
         graph.add_node(person, label = person.replace(' ' , '\n'), fontname = 'Helvetica', fixedsize = True, imagescale = True, width = '1.5', height = '1.5', fontcolor = 'white', shape = 'circle', style = 'filled', color = '#303030', URL = url_for('show_person', name = person), image = image_file)
