@@ -1,13 +1,19 @@
-
+#!/usr/bin/env python3
+from __future__ import print_function
 from flask import Flask, render_template, request, redirect, url_for
 
 import json
 import pygraphviz as pgv
 import re
 from lxml import etree
+#replace StringIO
 import io
-import urllib.request, urllib.parse, urllib.error
-import urllib.request, urllib.error, urllib.parse
+#from io import BytesIO
+#from io import StringIO
+import urllib
+#import urllib2
+import urllib.request
+import urllib3
 import string
 import sys
 import os
@@ -51,10 +57,15 @@ def get_titles(topic):
         'format' : 'json',
         'srlimit' : '40'
     }
-
+    
+    ## Big urllib change for Python 3 below...
+    #data = urllib.urlencode(values) # Python 2
     data = urllib.parse.urlencode(values)
+    data = data.encode('utf-8') # necessary for python 3
+
     request = urllib.request.Request(url, data)
-    response = urllib.request.urlopen(request)
+    #response = urllib2.urlopen(request) # Python 3 version below
+    response = urllib.request.urlopen(request) 
     json_response = response.read()
     json_result = json.loads(json_response)
 
@@ -69,7 +80,8 @@ def get_titles(topic):
     return results
 
 def get_graph_string(graph):
-    output = io.StringIO()
+    #output = StringIO.StringIO()
+    output = io.BytesIO()
     graph.draw(output, format = 'svg')
     svg = output.getvalue()
     output.close()
@@ -116,7 +128,8 @@ def build_graph(name, results, topics):
         image_files = get_image_files()
 
         for filename in image_files:
-            if string.count(filename, surname) != -1 and string.count(filename, forename) != -1:
+			#newstr = starturlsource[index+len(pattern):index+len(pattern)+17]
+            if str.find(filename, surname) != -1 and str.find(filename, forename) != -1:
                 image_file = '%s' % (filename)
 
         graph.add_node(person, label = person.replace(' ' , '\n'), fontname = 'Helvetica', fixedsize = True, imagescale = True, width = '1.5', height = '1.5', fontcolor = 'white', shape = 'circle', style = 'filled', color = '#303030', URL = url_for('show_person', name = person), image = image_file)
@@ -155,7 +168,7 @@ def build_graph(name, results, topics):
 
 @app.route('/')
 def index():
-    graph_name = 'All UoM Research Software Engineers and topics'
+    graph_name = 'UoM Research Software Engineers and their skills'
 
     results = set()
     topics = []
@@ -172,7 +185,7 @@ def index():
 
 @app.route('/person/<name>')
 def show_person(name):
-    graph_name = name + "'s interests"
+    graph_name = name + "'s skills"
 
     results = set()
     topics = []
@@ -187,7 +200,7 @@ def show_person(name):
 @app.route('/topic/<name>')
 def show_topic(name):
     main_topic = name
-    graph_name = 'UoM Research Software Engineers and topics related to ' + name
+    graph_name = 'UoM RSEs and their skills related to ' + name
 
     results = set()
     topics = get_titles(name)
@@ -208,11 +221,6 @@ def show_topic(name):
     graph_str = get_graph_string(graph)
 
     return render_template('graph.html', name = graph_name, node_count = len(graph.nodes()), graph = graph_str)
-
-
-
-
-
 # 2019-04-08 | New : Try to handle empty search
 @app.route('/topic/')
 def show_topic_notfound():
