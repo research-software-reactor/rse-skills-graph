@@ -103,7 +103,7 @@ def get_graph_string(graph):
         image_url = url_for('static', filename = 'images/' + image_filename)
         image.attrib['{http://www.w3.org/1999/xlink}href'] = image_url
 
-    return etree.tostring(svg_obj, pretty_print = True)
+    return etree.tostring(svg_obj, pretty_print = True).decode('utf-8')
 
 def get_image_files():
     image_files = []
