@@ -1,19 +1,39 @@
-#!/usr/bin/env python3
+# Amendments by Colin Morris - May 2019
+# ** NOTE : /var/www/html/supervisor_azad/python3/code/soft1 version!! **
+
 from __future__ import print_function
 from flask import Flask, render_template, request, redirect, url_for
+
+import sys
+python_version = sys.version_info[0] # New by colin. Add python version number for evaluation.
+
+# New - added by Colin | Evaluate python version if running version specific code
+def not_python3():
+    if python_version < 3:
+        return True
+
+    return False
+
 
 import json
 import pygraphviz as pgv
 import re
 from lxml import etree
-#replace StringIO
-import io
-#from io import BytesIO
-#from io import StringIO
+
 import urllib
-#import urllib2
-import urllib.request
-import urllib3
+import io
+
+if not_python3():
+    # imports for version smaller than python 3
+    import StringIO
+    import urllib2
+else:
+    # If python 3
+    from io import BytesIO
+    from io import StringIO
+    import urllib.request
+    import urllib3
+
 import string
 import sys
 import os
@@ -24,8 +44,8 @@ app = Flask(__name__)
 os.environ['PATH'] = os.environ['PATH'] + ':/usr/local/bin'
 os.environ['GV_FILE_PATH'] = os.path.abspath(os.path.join(os.path.dirname(__file__), 'static/images/')) + '/'
 
-print('PATH: ' + os.environ['PATH'], file=sys.stderr)
-print('GV_FILE_PATH: ' + os.environ['GV_FILE_PATH'], file=sys.stderr)
+#print('PATH: ' + os.environ['PATH'], file=sys.stderr)
+#print('GV_FILE_PATH: ' + os.environ['GV_FILE_PATH'], file=sys.stderr)
 
 def get_people():
     filepath = os.path.abspath(os.path.join(os.path.dirname(__file__), 'people.json'))
@@ -59,13 +79,17 @@ def get_titles(topic):
     }
     
     ## Big urllib change for Python 3 below...
-    #data = urllib.urlencode(values) # Python 2
-    data = urllib.parse.urlencode(values)
-    data = data.encode('utf-8') # necessary for python 3
+    if not_python3():
+        data = urllib.urlencode(values)
+        request = urllib2.Request(url, data)
+        response = urllib2.urlopen(request)
+    else:
 
-    request = urllib.request.Request(url, data)
-    #response = urllib2.urlopen(request) # Python 3 version below
-    response = urllib.request.urlopen(request) 
+        data = urllib.parse.urlencode(values)
+        data = data.encode('utf-8') # necessary for python 3
+        request = urllib.request.Request(url, data)
+        response = urllib.request.urlopen(request)
+
     json_response = response.read()
     json_result = json.loads(json_response)
 
@@ -80,8 +104,12 @@ def get_titles(topic):
     return results
 
 def get_graph_string(graph):
-    #output = StringIO.StringIO()
-    output = io.BytesIO()
+
+    if not_python3():
+        output = StringIO.StringIO() # python 2 only.
+    else:
+        output = io.BytesIO()
+
     graph.draw(output, format = 'svg')
     svg = output.getvalue()
     output.close()
@@ -103,6 +131,7 @@ def get_graph_string(graph):
         image_url = url_for('static', filename = 'images/' + image_filename)
         image.attrib['{http://www.w3.org/1999/xlink}href'] = image_url
 
+    #print("== DECODE return string in function: get_graph_string for python version " + str(python_version) + " ==")
     return etree.tostring(svg_obj, pretty_print = True).decode('utf-8')
 
 def get_image_files():
@@ -112,55 +141,55 @@ def get_image_files():
     for root, sub_folders, files in os.walk(image_dir):
         for filename in files:
             actual_file_name = os.path.join(root, filename)
-            if filename.endswith('.png'):
+            if filename.endswith(".png"):
                 image_files.append(filename)
 
     return image_files
 
 def build_graph(name, results, topics):
-    graph = pgv.AGraph(overlap = 'false', name = name)
+    graph = pgv.AGraph(overlap = "false", name = name)
     people = get_people()
 
     for person in results:
         forename, surname = person.lower().split()
 
-        image_file = 'anonymous.png'
+        image_file = "anonymous.png"
         image_files = get_image_files()
 
         for filename in image_files:
 			#newstr = starturlsource[index+len(pattern):index+len(pattern)+17]
             if str.find(filename, surname) != -1 and str.find(filename, forename) != -1:
-                image_file = '%s' % (filename)
+                image_file = "%s" % filename
 
-        graph.add_node(person, label = person.replace(' ' , '\n'), fontname = 'Helvetica', fixedsize = True, imagescale = True, width = '1.5', height = '1.5', fontcolor = 'white', shape = 'circle', style = 'filled', color = '#303030', URL = url_for('show_person', name = person), image = image_file)
+        graph.add_node(person, label = person.replace(" " , "\n"), fontname = "Helvetica", fixedsize = True, imagescale = True, width = "1.5", height = "1.5", fontcolor = "white", shape = "circle", style = "filled", color = "#303030", URL = url_for('show_person', name = person), image = image_file)
 
         interests = people[person]['interests']
         for interest in interests:
             if interest in topics:
-                color = '#A02020FF'
-                shape = 'ellipse'
+                color = "#A02020FF"
+                shape = "ellipse"
             else:
-                color = '#105060EE'
-                shape = 'ellipse'
+                color = "#105060EE"
+                shape = "ellipse"
 
-            label = re.sub('\(.*\)', '', interest)
+            label = re.sub("\(.*\)", "", interest)
 
-            graph.add_node(interest, label = label, style = 'filled', fontname = 'Helvetica', shape = shape, color = color, fontcolor = 'white', URL = url_for('show_topic', name = interest))
-            graph.add_edge(person, interest, color = '#00000050')
+            graph.add_node(interest, label = label, style = "filled", fontname = "Helvetica", shape = shape, color = color, fontcolor = "white", URL = url_for("show_topic", name = interest))
+            graph.add_edge(person, interest, color = "#00000050")
 
-        if 'technologies' in people[person]:
+        if "technologies" in people[person]:
             for technology in people[person]['technologies']:
                 if technology in topics:
-                    color = '#B01050FF'
-                    shape = 'ellipse'
+                    color = "#B01050FF"
+                    shape = "ellipse"
                 else:
-                    color = '#701050EE'
-                    shape = 'ellipse'
+                    color = "#701050EE"
+                    shape = "ellipse"
 
-                label = re.sub('\(.*\)', '', technology)
+                label = re.sub("\(.*\)", "", technology)
 
-                graph.add_node(technology, label = label, style = 'filled', fontname = 'Helvetica', shape = shape, color = color, fontcolor = 'white')
-                graph.add_edge(person, technology, color = '#00000050')
+                graph.add_node(technology, label = label, style = "filled", fontname = "Helvetica", shape = shape, color = color, fontcolor = "white")
+                graph.add_edge(person, technology, color = "#00000050")
 
     graph.layout(prog = 'neato')
 
@@ -168,7 +197,7 @@ def build_graph(name, results, topics):
 
 @app.route('/')
 def index():
-    graph_name = 'UoM Research Software Engineers and their skills'
+    graph_name = 'All people and topics'
 
     results = set()
     topics = []
@@ -179,13 +208,16 @@ def index():
         results.add(person)
 
     graph = build_graph(graph_name, results, topics)
+
     graph_str = get_graph_string(graph)
+    #escape_graph_str = re.sub(r'\\(?=")', '|', graph_str.decode('utf-8'))
+    #print(graph_str[:300]) # DEGUGGING Python3 string escape issue - Print first 300 characters to error.log
 
     return render_template('graph.html', name = graph_name, node_count = len(graph.nodes()), graph = graph_str)
 
 @app.route('/person/<name>')
 def show_person(name):
-    graph_name = name + "'s skills"
+    graph_name = name + "'s interests"
 
     results = set()
     topics = []
@@ -200,7 +232,7 @@ def show_person(name):
 @app.route('/topic/<name>')
 def show_topic(name):
     main_topic = name
-    graph_name = 'UoM RSEs and their skills related to ' + name
+    graph_name = 'People and topics related to ' + name
 
     results = set()
     topics = get_titles(name)
