@@ -1,4 +1,67 @@
 {
+
+  "Anja LeBlanc": {
+    "interests": [
+      "Agile software development",
+      "Cloud computing",
+      "Test driven development",
+      "Project management",
+      "Software testing",
+      "Version control",
+      "Web applications",
+      "Java",
+      "C (programming language)",
+      "AngularJS",
+      "JavaScript",
+      "Python",
+      "Bash (Unix shell)",
+      "JSP",
+      "SQL",
+      "Linux",
+      "Microsoft Windows",
+      "Git",
+      "Tomcat",
+      "Apache",
+      "Eclipse (software)",
+      "VirtualBox",
+      "Microsoft Azure",
+      "Amazon Web Services"
+       ],
+     "technologies": [
+         "Contact Anja for Application Support and Training"
+  ]
+  },
+
+
+
+  "Tony Evans": {
+     "interests": [
+       "Web development",
+       "Web search engine",
+       "Data cluster",
+       "Python",
+       "Amazon Web Services",
+       "Google APIs",
+       "Search engine optimization",
+       "Text mining",
+       "PHP",
+       "MATLAB",
+       "Java",
+       "HTML",
+       "Cascading Style Sheets",
+       "Linux",
+       "EPOC",
+       "Symbian",
+       "MacOS",
+       "JavaScript",
+       "Zend",
+       "Adobe Dreamweaver",
+       "Eclipse (software)"
+   ]
+  },
+
+
+
   "Ian Hinder": {
        "interests": [
             "Optimization",
@@ -337,7 +400,7 @@
     "C (programming language)",
     "C++",
     "C# (programming language)",
-    "Java (programming language)",
+    "Java",
     "MATLAB",
     "Visual Studio",
     "Android SDK",
