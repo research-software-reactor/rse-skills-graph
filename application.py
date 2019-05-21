@@ -20,7 +20,7 @@ import os.path
 
 app = Flask(__name__)
 
-#os.environ['PATH'] = os.environ['PATH'] + ':/usr/local/bin'
+os.environ['PATH'] = os.environ['PATH'] + ':/usr/local/bin'
 os.environ['GV_FILE_PATH'] = os.path.abspath(os.path.join(os.path.dirname(__file__), 'static/images/')) + '/'
 
 print('PATH: ' + os.environ['PATH'], file=sys.stderr)
