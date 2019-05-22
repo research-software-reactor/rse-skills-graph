@@ -131,7 +131,9 @@ def build_graph(name, results, topics):
             if str.find(filename, surname) != -1 and str.find(filename, forename) != -1:
                 image_file = '%s' % (filename)
 
-        graph.add_node(person, label = person.replace(' ' , '\n'), fontname = 'Helvetica', fixedsize = True, imagescale = True, width = '1.5', height = '1.5', fontcolor = 'white', shape = 'circle', style = 'filled', color = '#303030', URL = url_for('show_person', name = person), image = image_file)
+        # check added for _ in name e.g. Anja Le_Blanc; that is: convert _ to space
+        myperson= person.replace(' ', '\n')
+        graph.add_node(person, label = myperson.replace('_' , ' '), fontname = 'Helvetica', fixedsize = True, imagescale = True, width = '1.5', height = '1.5', fontcolor = 'white', shape = 'circle', style = 'filled', color = '#303030', URL = url_for('show_person', name = person), image = image_file)
 
         interests = people[person]['interests']
         for interest in interests:
@@ -184,7 +186,7 @@ def index():
 
 @app.route('/person/<name>')
 def show_person(name):
-    graph_name = name + "'s skills"
+    graph_name = name.replace('_', ' ') + "'s skills"
 
     results = set()
     topics = []
