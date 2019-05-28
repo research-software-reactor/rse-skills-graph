@@ -12,3 +12,8 @@ To run locally: python application.py
 
 TODO: tried to push to Azure Cloud but need for GraphViz installation preventing this currently.
 This https://github.com/matthew-brett/pygraphviz-wheels might help.
+
+- To run in Docker, see [Running in Docker](doc/RunningInDocker)
+
+- To run in Docker on Microsoft Azure, see [Running in Docker on Azure](doc/RunningOnAzureWithDocker)
+
