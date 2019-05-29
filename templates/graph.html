@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>{{ name }}</h1>
+{% if version != "" %}
+<p>Last updated {{ version }}</p>
+{% endif %}
+
 {% if node_count >= 1 %}
 <div id="svg">
 	<div class="parent">

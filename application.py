@@ -182,7 +182,7 @@ def index():
     graph = build_graph(graph_name, results, topics)
     graph_str = get_graph_string(graph)
 
-    return render_template('graph.html', name = graph_name, node_count = len(graph.nodes()), graph = graph_str)
+    return render_template('graph.html', name = graph_name, node_count = len(graph.nodes()), graph = graph_str, version = os.environ['LAST_UPDATE'])
 
 @app.route('/person/<name>')
 def show_person(name):
