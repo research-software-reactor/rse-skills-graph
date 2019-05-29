@@ -15,6 +15,9 @@ RUN pip3 install -r requirements.txt
 
 COPY . /app
 
+ARG last_update
+ENV LAST_UPDATE=$last_update
+
 ENTRYPOINT [ "python3" ]
 
 CMD [ "application.py" ]
