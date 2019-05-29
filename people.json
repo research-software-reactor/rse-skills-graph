@@ -1,6 +1,28 @@
 {
 
 
+  "Donal Fellows": {
+    "interests": [
+      "Java",
+      "Python",
+      "Tcl",
+      "C (programming language)",
+      "C++",
+      "Git",
+      "Fossil",
+      "Manycore processor",
+      "Web service",
+      "REST",
+      "Workflow management system",
+      "Eclipse",
+      "Apache Maven",
+      "Object-oriented analysis and design",
+      "Service-oriented architecture",
+      "Compiler"
+   ]
+  },
+
+
  "Josh Woodcock": {
    "interests": [
     "Virtual reality",
