@@ -1,5 +1,75 @@
 {
 
+
+ "Josh Woodcock": {
+   "interests": [
+    "Virtual reality",
+    "Augmented reality",
+    "Mixed reality",
+    "HoloLens",
+    "HTC Vive",
+    "Oculus Rift",
+    "Oculus Quest",
+    "LEAP Motion",
+    "VRTK",
+    "Unity",
+    "Web development",
+    "Web scraping",
+    "Scripting",
+    "DevOps",
+    "Django",
+    "Wagtail",
+    "Flask (web framework)",
+    "Mobile app",
+    "Ionic",
+    "Cordova",
+    "Angular JS",
+    "Android (operating system)",
+    "iOS",
+    "Python",
+    "TypeScript",
+    "R (programming language)",
+    "Markdown",
+    "JavaScript",
+    "C# (programming language)",
+    "Data science",
+    "Data visualization",
+    "Plotly",
+    "Interaction design",
+    "Linux",
+    "Microsoft Windows",
+    "macOS",
+    "Version Control",
+    "Git"
+   ]
+  },
+
+
+   "Theresa Teng": {
+    "interests": [
+     "AngularJS",
+     "Application design",
+     "ASP.NET",
+     "Business analysis",
+     "C# (programming language)",
+     "HTML",
+     "JavaScript",
+     "JQuery",
+     "Microsoft Windows",
+     "Model-view controller",
+     "Omeka",
+     "Project management",
+     "SQL",
+     "Visual Studio",
+     "Web application"
+   ],
+       "technologies": [
+         "Contact Theresa for RSE  projects in FHUM"
+ ]
+  },
+
+
+
   "Anja Le_Blanc": {
     "interests": [
       "Agile software development",
@@ -403,6 +473,7 @@
     "Java",
     "MATLAB",
     "Visual Studio",
+    "Android (operating system)",
     "Android SDK",
     "Java Native Interface (JNI)",
     "NVIDIA CUDA",
