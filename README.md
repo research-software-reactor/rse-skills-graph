@@ -31,7 +31,7 @@ Possible other applications that have been suggested:
 If you want general self-service ability to modify entries, a web front-end would be nice.
 For a fairly closed, trusted community you can use Git to let people access and change people.json directly.
 
-- To run in Docker, see [Running in Docker](doc/RunningInDocker)
+- To run in Docker, see [Running in Docker](doc/RunningInDocker.md)
 
-- To run in Docker on Microsoft Azure, see [Running in Docker on Azure](doc/RunningOnAzureWithDocker)
+- To run in Docker on Microsoft Azure, see [Running in Docker on Azure](doc/RunningOnAzureWithDocker.md)
 
