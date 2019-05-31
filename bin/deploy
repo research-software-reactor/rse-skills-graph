@@ -1,0 +1,92 @@
+#!/bin/bash
+
+#set -x
+set -e
+set -u
+
+function usage()
+{
+    cat <<EOF
+Usage: $0 COMMAND PROJECT
+Commands:
+  create   Create a resource group, a container registry, build the
+           Dockerfile in the current directory, push it to the
+           registry, and create a container from it.
+
+  delete   Delete the resource group and all the resources in it.
+
+PROJECT is a name to give to the project.  It must be lowercase
+alphanumeric and globally unique in Azure, as it will be used for the
+container registry and DNS name of the container.
+
+EOF
+}
+
+if [ $# -ne 2 ]; then
+    echo "$0: Incorrect number of arguments" >&2
+    usage >&2
+    exit 1
+fi
+
+command=$1
+PROJECT="$2"
+
+project_regexp='^[a-z0-9]+$'
+if [[ ! ( "${PROJECT}" =~ ${project_regexp} ) ]]; then
+    echo "$0: Validation of project name '${PROJECT}' failed; project names must be lowercase alphanumeric strings" >&2
+    exit 1
+fi
+
+# Configuration
+
+# See
+# https://docs.microsoft.com/en-us/azure/architecture/best-practices/naming-conventions
+# for restrictions on uniqueness, case and allowed characters for each
+# different resource type
+
+RES_GROUP=${PROJECT}-rg
+ACR_NAME=${PROJECT}cr
+LOCATION=westeurope
+IMAGE=${PROJECT}:latest
+CONTAINER_NAME=${PROJECT}
+DNS_LABEL=${PROJECT}
+PORT=5000
+
+case $command in
+
+    create)
+        # Create a resource group in which everything else will be stored
+        az group create --name ${RES_GROUP} --location ${LOCATION} --output none
+
+        # Create a container registry in which to store the built image
+        az acr create --resource-group ${RES_GROUP} --name ${ACR_NAME} --sku Basic --admin-enabled true --output none
+
+        # Obtain the password for the container registry
+        REG_PASSWD=$(az acr credential show --resource-group ${RES_GROUP} --name ${ACR_NAME} --query "passwords[0].value" --output tsv)
+
+        # Remotely build an image from the Dockerfile in the current directory, name it ${IMAGE}, and send it to the container  registry
+        az acr build --registry ${ACR_NAME} --image ${IMAGE} --output none . 
+
+        # Obtain the login server of the container registry
+        ACR_LOGIN_SERVER=$(az acr show --name $ACR_NAME --resource-group $RES_GROUP --query "loginServer" --output tsv)
+
+        # Create the container
+        az container create --resource-group ${RES_GROUP} --name ${CONTAINER_NAME} --image ${ACR_LOGIN_SERVER}/${IMAGE} --ports ${PORT} --registry-login-server ${ACR_LOGIN_SERVER} --registry-username ${ACR_NAME} --registry-password "${REG_PASSWD}" --dns-name-label ${DNS_LABEL} --output none
+
+        # Obtain the fully qualified domain name of the container
+        CONTAINER_DNSNAME=$(az container show --resource-group ${RES_GROUP} --name ${CONTAINER_NAME} --query ipAddress.fqdn --output tsv)
+
+        echo "Container is running at"
+        echo "http://${CONTAINER_DNSNAME}:${PORT}"
+        ;;
+
+    delete)
+        
+        # Delete the resource group and all it contains
+        az group delete --name ${RES_GROUP} --yes
+        ;;
+
+    *)
+        echo "$0: Unrecognised command \"${command}\"" >&2
+        exit 1
+esac
