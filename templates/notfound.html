@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
+{% if not search_term %}
 <h1>Not Found - 404!</h1>
-
+{% else %}
+<h1>Name or category, {{ search_term }} not Found - 404!</h1>
+{% endif %}
 <p>Return to <a href="{{ url_for('index') }}">Home</a></p>
-
+{% if interests %}
+{% autoescape false %}
+<p>{{ interests }}</p>
+{% endautoescape %}
+{% endif %}
 {% endblock %}
