@@ -13,10 +13,10 @@ Check Docker is working from the command line with
 docker run hello-world
 ```
 
-Clone the "docker" branch of the RSESkillsGraph repo:
+Clone the RSESkillsGraph repo:
 
 ```
-git clone -b docker git@github.com:UoMResearchIT/RSESkillsGraph.git
+git clone git@github.com:UoMResearchIT/RSESkillsGraph.git
 ```
 
 Build the Docker image; this will take a couple of minutes.  The image is built according to the Dockerfile in the root of the repository.
