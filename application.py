@@ -17,6 +17,9 @@ import string
 import sys
 import os
 import os.path
+import natsort
+from collections import OrderedDict
+
 
 app = Flask(__name__)
 
@@ -29,6 +32,22 @@ print('GV_FILE_PATH: ' + os.environ['GV_FILE_PATH'], file=sys.stderr)
 def get_people():
     filepath = os.path.abspath(os.path.join(os.path.dirname(__file__), 'people.json'))
     return get_file_contents(filepath)
+
+# thanks to Colin Morris for adding this code originally
+def get_skills_list():
+    skills_list = {}
+    json_results = get_people()
+    for supervisor, data in json_results.items():
+        for section in data:
+            for item in json_results[str(supervisor)][section]:
+                if item not in skills_list:
+                    skills_list[item] = 1;
+                else:
+                    skills_list[item] = skills_list[item] +1;
+
+    skills_list_new = OrderedDict(natsort.natsorted(skills_list.items()))
+    return skills_list_new
+
 
 def get_file_contents(filename):
     data = None
@@ -181,11 +200,27 @@ def index():
 
     graph = build_graph(graph_name, results, topics)
     graph_str = get_graph_string(graph)
+    interests_links = get_interests_links()
+    return render_template('graph.html', name=graph_name, node_count=len(graph.nodes()), graph=graph_str, interests=interests_links,  version = os.environ['LAST_UPDATE'])
 
-    return render_template('graph.html', name = graph_name, node_count = len(graph.nodes()), graph = graph_str, version = os.environ['LAST_UPDATE'])
+
+def get_interests_links():
+    interests_skills = get_skills_list()
+    interests_links = ""
+    index_link = url_for('index')
+    for skill, count in interests_skills.items():
+        interests_links += '<a href="' + index_link + 'topic/' + str(skill) + '" title="' + str(count) + ' records">' + str(skill) + '</a><br>'
+    return interests_links
+
 
 @app.route('/person/<name>')
-def show_person(name):
+@app.route('/person/')
+@app.route('/person')
+def show_person(name=None):
+    if not name:
+        interests_links = get_interests_links()
+        return render_template('notfound.html', interests=interests_links)
+
     graph_name = name.replace('_', ' ') + "'s skills"
 
     results = set()
@@ -194,9 +229,14 @@ def show_person(name):
     results.add(name)
 
     graph = build_graph(graph_name, results, topics)
+    if graph is False:
+        pname=name
+        interests_links = get_interests_links()
+        return render_template('notfound.html', search_term=pname, interests=interests_links)
     graph_str = get_graph_string(graph)
 
-    return render_template('graph.html', name = graph_name, node_count = len(graph.nodes()), graph = graph_str)
+    return render_template('graph.html', name=graph_name, node_count=len(graph.nodes()), graph=graph_str)
+
 
 @app.route('/topic/<name>')
 def show_topic(name):
@@ -207,6 +247,7 @@ def show_topic(name):
     topics = get_titles(name)
 
     people = get_people()
+    interests_links = get_interests_links()
 
     for person in people:
         for topic in topics:
@@ -220,17 +261,17 @@ def show_topic(name):
 
     graph = build_graph(graph_name, results, topics)
     graph_str = get_graph_string(graph)
+    return render_template('graph.html', name=graph_name, node_count=len(graph.nodes()), graph=graph_str, interests=interests_links)
 
-    return render_template('graph.html', name = graph_name, node_count = len(graph.nodes()), graph = graph_str)
 # 2019-04-08 | New : Try to handle empty search
 @app.route('/topic/')
 def show_topic_notfound():
-    return render_template('notfound.html')
+    interests_links = get_interests_links()
+    return render_template('notfound.html', interests=interests_links)
 
 @app.route('/topic-search')
 def topic_search():
     topic = request.args.get('topic')
-
     return redirect(url_for('show_topic', name = topic))
 
 

@@ -40,5 +40,12 @@
 {% else %}
   <p>No results found for {{ name }}.</p>
 <p>Return to <a href="{{ url_for('index') }}">Home</a></p>
+{% if interests %}
+{% autoescape false %}
+<h3>List of possible topics</h3>
+<p>{{ interests }}</p>
+{% endautoescape %}
 {% endif %}
+{% endif %}
+
 {% endblock %}
