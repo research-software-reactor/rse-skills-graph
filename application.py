@@ -201,7 +201,7 @@ def index():
     graph = build_graph(graph_name, results, topics)
     graph_str = get_graph_string(graph)
     interests_links = get_interests_links()
-    return render_template('graph.html', name=graph_name, node_count=len(graph.nodes()), graph=graph_str, interests=interests_links,  version = os.environ['LAST_UPDATE'])
+    return render_template('graph.html', name=graph_name, node_count=len(graph.nodes()), graph=graph_str, interests=interests_links)
 
 
 def get_interests_links():
