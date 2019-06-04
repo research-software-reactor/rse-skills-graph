@@ -13,8 +13,14 @@ storage if it has not been set up already. Choose "bash" for the
 shell.
 
 Clone the RSE Skills Graph git repository into your Azure Cloud Shell
-storage:
+storage.
 
+For non-Manchester folk:
+```
+git clone https://github.com/research-software-reactor/rse-skills-graph
+cd RSESkillsGraph
+```
+For Manchester RSEs:
 ```
 git clone https://github.com/UoMResearchIT/RSESkillsGraph.git
 cd RSESkillsGraph
