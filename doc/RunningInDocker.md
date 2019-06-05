@@ -15,8 +15,14 @@ docker run hello-world
 
 Clone the RSESkillsGraph repo:
 
+For Manchester RSEs:
 ```
 git clone git@github.com:UoMResearchIT/RSESkillsGraph.git
+```
+
+For non-Manchester folk:
+```
+git clone https://github.com/research-software-reactor/rse-skills-graph
 ```
 
 Build the Docker image; this will take a couple of minutes.  The image is built according to the Dockerfile in the root of the repository.
