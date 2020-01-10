@@ -75,7 +75,7 @@ def get_titles(topic):
         'format' : 'json',
         'srlimit' : '40'
     }
-    
+
     ## Big urllib change for Python 3 below...
     #data = urllib.urlencode(values) # Python 2
     data = urllib.parse.urlencode(values)
@@ -83,7 +83,7 @@ def get_titles(topic):
 
     request = urllib.request.Request(url, data)
     #response = urllib2.urlopen(request) # Python 3 version below
-    response = urllib.request.urlopen(request) 
+    response = urllib.request.urlopen(request)
     json_response = response.read()
     json_result = json.loads(json_response)
 
@@ -188,7 +188,7 @@ def build_graph(name, results, topics):
 
 @app.route('/')
 def index():
-    graph_name = 'UoM Research Software Engineers and their skills'
+    graph_name = 'UoL Research Software Engineers and their skills'
 
     results = set()
     topics = []
@@ -241,7 +241,7 @@ def show_person(name=None):
 @app.route('/topic/<name>')
 def show_topic(name):
     main_topic = name
-    graph_name = 'UoM RSEs and their skills related to ' + name
+    graph_name = 'UoL RSEs and their skills related to ' + name
 
     results = set()
     topics = get_titles(name)

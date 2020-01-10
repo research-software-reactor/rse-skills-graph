@@ -1,0 +1,3 @@
+# gitignore for rse-skills-graph
+
+dev_notes/.ipynb_checkpoints/*
