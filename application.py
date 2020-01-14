@@ -152,7 +152,13 @@ def build_graph(name, results, topics):
 
         # check added for _ in name e.g. Anja Le_Blanc; that is: convert _ to space
         myperson= person.replace(' ', '\n')
-        graph.add_node(person, label = myperson.replace('_' , ' '), fontname = 'Helvetica', fixedsize = True, imagescale = True, width = '1.5', height = '1.5', fontcolor = 'white', shape = 'circle', style = 'filled', color = '#303030', URL = url_for('show_person', name = person), image = image_file)
+        graph.add_node(person, label = myperson.replace('_' , ' '),
+                       fontname = 'Helvetica',fixedsize = True,
+                       imagescale = True, width = '1.5', height = '1.5',
+                       fontcolor = 'white', shape = 'circle', style = 'filled',
+                       color = '#303030',
+                       URL = "mailto:"+people[person]['email'][0], 
+                       image = image_file)
 
         interests = people[person]['interests']
         for interest in interests:
@@ -165,7 +171,12 @@ def build_graph(name, results, topics):
 
             label = re.sub('\(.*\)', '', interest)
 
-            graph.add_node(interest, label = label, style = 'filled', fontname = 'Helvetica', shape = shape, color = color, fontcolor = 'white', URL = url_for('show_topic', name = interest))
+            graph.add_node(interest, label = label, style = 'filled',
+                           fontname = 'Helvetica', shape = shape, color = color,
+                           fontcolor = 'white',
+                           URL = url_for('show_topic', name = interest)
+                           )
+
             graph.add_edge(person, interest, color = '#00000050')
 
         if 'technologies' in people[person]:
@@ -179,7 +190,10 @@ def build_graph(name, results, topics):
 
                 label = re.sub('\(.*\)', '', technology)
 
-                graph.add_node(technology, label = label, style = 'filled', fontname = 'Helvetica', shape = shape, color = color, fontcolor = 'white')
+                graph.add_node(technology, label = label, style = 'filled',
+                               fontname = 'Helvetica', shape = shape,
+                               color = color, fontcolor = 'white')
+
                 graph.add_edge(person, technology, color = '#00000050')
 
     graph.layout(prog = 'neato')
@@ -201,7 +215,10 @@ def index():
     graph = build_graph(graph_name, results, topics)
     graph_str = get_graph_string(graph)
     interests_links = get_interests_links()
-    return render_template('graph.html', name=graph_name, node_count=len(graph.nodes()), graph=graph_str, interests=interests_links)
+    return render_template('graph.html', name=graph_name,
+                           node_count=len(graph.nodes()),
+                           graph=graph_str,
+                           interests=interests_links)
 
 
 def get_interests_links():
@@ -232,10 +249,16 @@ def show_person(name=None):
     if graph is False:
         pname=name
         interests_links = get_interests_links()
-        return render_template('notfound.html', search_term=pname, interests=interests_links)
+        return render_template('notfound.html',
+                               search_term=pname,
+                               interests=interests_links)
+
     graph_str = get_graph_string(graph)
 
-    return render_template('graph.html', name=graph_name, node_count=len(graph.nodes()), graph=graph_str)
+    return render_template('graph.html',
+                           name=graph_name,
+                           node_count=len(graph.nodes()),
+                           graph=graph_str)
 
 
 @app.route('/topic/<name>')
@@ -261,7 +284,9 @@ def show_topic(name):
 
     graph = build_graph(graph_name, results, topics)
     graph_str = get_graph_string(graph)
-    return render_template('graph.html', name=graph_name, node_count=len(graph.nodes()), graph=graph_str, interests=interests_links)
+    return render_template('graph.html', name=graph_name,
+                           node_count=len(graph.nodes()),
+                           graph=graph_str, interests=interests_links)
 
 # 2019-04-08 | New : Try to handle empty search
 @app.route('/topic/')
