@@ -39,11 +39,13 @@ def get_skills_list():
     json_results = get_people()
     for supervisor, data in json_results.items():
         for section in data:
-            for item in json_results[str(supervisor)][section]:
-                if item not in skills_list:
-                    skills_list[item] = 1;
-                else:
-                    skills_list[item] = skills_list[item] +1;
+            # add if block to prevent emails being added to skills list
+            if section != "email":
+                for item in json_results[str(supervisor)][section]:
+                    if item not in skills_list:
+                        skills_list[item] = 1;
+                    else:
+                        skills_list[item] = skills_list[item] +1;
 
     skills_list_new = OrderedDict(natsort.natsorted(skills_list.items()))
     return skills_list_new
@@ -157,7 +159,7 @@ def build_graph(name, results, topics):
                        imagescale = True, width = '1.5', height = '1.5',
                        fontcolor = 'white', shape = 'circle', style = 'filled',
                        color = '#303030',
-                       URL = "mailto:"+people[person]['email'][0], 
+                       URL = "mailto:"+people[person]['email'][0],
                        image = image_file)
 
         interests = people[person]['interests']
@@ -226,7 +228,8 @@ def get_interests_links():
     interests_links = ""
     index_link = url_for('index')
     for skill, count in interests_skills.items():
-        interests_links += '<a href="' + index_link + 'topic/' + str(skill) + '" title="' + str(count) + ' records">' + str(skill) + '</a><br>'
+        interests_links += '<a href="' + index_link + 'topic/' + str(skill) + \
+        '" title="' + str(count) + ' records">' + str(skill) + '</a><br>'
     return interests_links
 
 
