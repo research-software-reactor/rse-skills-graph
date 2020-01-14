@@ -1,3 +1,6 @@
 # gitignore for rse-skills-graph
 
 dev_notes/.ipynb_checkpoints/*
+
+# for development will ignore the .json data file
+people.json
