@@ -9,7 +9,7 @@
 	<script src="{{ url_for('static', filename='js/jquery.mousewheel.js') }}"></script>
 </head>
 <body>
-	<img src="{{ url_for('static', filename='images/unileedslogo.jpeg') }}" width="150">
+	<a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='images/unileedslogo.jpeg') }}" width="150"> <a/>
 	<form name="topic_keyword" action="{{ url_for('topic_search') }}" method="get">
 		<input type="text" name="topic" size="50">
 		<input type="submit" value="Search Topics">
