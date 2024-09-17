@@ -4,7 +4,7 @@ FROM ubuntu:18.04
 MAINTAINER "Ian Hinder <ian.hinder@manchester.ac.uk>"
 
 RUN apt-get update -y && \
-    apt-get install -y python3 python3-pip python3-requests graphviz libgraphviz-dev && \
+    apt-get install -y python3 python3-pip python3-requests graphviz libgraphviz-dev curl && \
     rm -rf /var/lib/apt/lists/*
 
 COPY ./requirements.txt /app/requirements.txt
