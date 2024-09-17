@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 # Maintainer of the docker image, not the code!
 MAINTAINER "Ian Hinder <ian.hinder@manchester.ac.uk>"
