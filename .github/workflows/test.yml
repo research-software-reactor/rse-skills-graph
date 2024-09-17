@@ -30,6 +30,7 @@ jobs:
           # 30s for its built-in health check to return "healthy"
           if ! docker compose -f compose.yml up --wait --wait-timeout 30; then
             docker compose logs
+            docker inspect --format='{{json .State.Health}}' rse-skills-graph-web-1 | jq
             exit 1
           fi
           docker compose -f compose.yml down
