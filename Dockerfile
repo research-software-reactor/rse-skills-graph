@@ -3,6 +3,8 @@ FROM ubuntu:20.04
 # Maintainer of the docker image, not the code!
 MAINTAINER "Ian Hinder <ian.hinder@manchester.ac.uk>"
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update -y && \
     apt-get install -y python3 python3-pip python3-requests graphviz libgraphviz-dev curl && \
     rm -rf /var/lib/apt/lists/*
