@@ -21,3 +21,8 @@ ENV LAST_UPDATE=$last_update
 ENTRYPOINT [ "python3" ]
 
 CMD [ "application.py" ]
+
+# TODO: in docker 25 and later, we should use --start-interval and
+# --start-period to perform more frequent checks on startup to speed
+# up tests
+HEALTHCHECK --interval=10s CMD curl --fail http://localhost:5000 || exit 1   
