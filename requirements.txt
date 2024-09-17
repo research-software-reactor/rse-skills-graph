@@ -8,4 +8,4 @@ natsort==6.0.0
 pygraphviz==1.5
 pyparsing==2.4.0
 urllib3==1.26.5
-Werkzeug==0.16.0
+Werkzeug==3.0.3
