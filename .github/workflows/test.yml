@@ -28,8 +28,10 @@ jobs:
         run: |
           # Launch the project from docker-compose.yml and wait up to
           # 30s for its built-in health check to return "healthy"
-          docker compose -f compose.yml up --wait --wait-timeout 30
-          docker compose logs
+          if ! docker compose -f compose.yml up --wait --wait-timeout 30; then
+            docker compose logs
+            exit 1
+          fi
           docker compose -f compose.yml down
 
       # - name: Run Pytest tests
