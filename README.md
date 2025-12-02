@@ -1,3 +1,7 @@
+> [!NOTE]
+>
+> 02-Dec-2025: This code was provided as an example, but is no longer being actively maintained, and its dependencies are not being updated to fix security vulnerabilities. As such, it is being archived and should not be used without ensuring that dependencies are updated.
+
 # This is the RSE Skills Graph web app written in Python 3 with the Flask framework
 Original code by Steve Pettifer; mods by Ian Cottam, Colin Morris, Ian Hinder;
 The University of Manchester; 
